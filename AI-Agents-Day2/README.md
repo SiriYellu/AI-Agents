@@ -1,5 +1,7 @@
 <img width="1608" height="1174" alt="Screenshot 2025-09-25 212832" src="https://github.com/user-attachments/assets/7d759821-550a-4307-8a86-6d87ba4d67aa" />
-# Day 2 – Chunking and Intelligent Processing
+
+
+## Day 2 – Chunking and Intelligent Processing
 
 📚 **Learning Log – Day 2 of AI Agents Crash Course**
 
