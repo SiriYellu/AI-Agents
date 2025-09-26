@@ -1,8 +1,42 @@
-
-import io, os, sys, json, re, zipfile, argparse
+﻿import io, os, sys, json, re, zipfile, argparse
 from typing import List, Dict
 
-import requests, frontmatter
+import requests
+
+# ---- Safe frontmatter parser (no external deps) ----
+_FM_START = re.compile(r"^---\s*$", re.MULTILINE)
+
+def parse_frontmatter_safely(text: str) -> (Dict, str):
+    """
+    Returns (metadata_dict, content_str).
+    If no YAML frontmatter, metadata={}, content=text.
+    If YAML block exists but no yaml lib, returns {} and full content after frontmatter.
+    """
+    if not text.startswith("---"):
+        return {}, text
+
+    # Find the first two '---' lines
+    matches = list(_FM_START.finditer(text))
+    if len(matches) < 2 or matches[0].start() != 0:
+        return {}, text
+
+    start = matches[0].end()
+    end = matches[1].start()
+    raw_yaml = text[start:end].strip()
+    body = text[matches[1].end():].lstrip("\n")
+
+    # Try to parse YAML if pyyaml is available; otherwise return empty metadata
+    meta = {}
+    try:
+        import yaml  # optional
+        meta = yaml.safe_load(raw_yaml) or {}
+        if not isinstance(meta, dict):
+            meta = {}
+    except Exception:
+        # no yaml or bad yaml: keep meta empty, still return body
+        meta = {}
+
+    return meta, body
 
 # ---------- Day 1 helpers: download & parse .md/.mdx ----------
 def zip_url(owner: str, repo: str, branch: str) -> str:
@@ -30,12 +64,12 @@ def read_repo_docs(owner: str, repo: str, exts=(".md", ".mdx")) -> List[Dict]:
         try:
             with zf.open(info) as f:
                 text = f.read().decode("utf-8", errors="ignore")
-                post = frontmatter.loads(text)
+                metadata, content = parse_frontmatter_safely(text)
                 out.append({
                     "source": f"{owner}/{repo}",
                     "filename": "/".join(filename.split("/")[1:]),  # strip top folder
-                    "metadata": post.metadata or {},
-                    "content": post.content or ""
+                    "metadata": metadata,
+                    "content": content
                 })
         except Exception as e:
             print(f"[WARN] {filename}: {e}")
@@ -43,39 +77,32 @@ def read_repo_docs(owner: str, repo: str, exts=(".md", ".mdx")) -> List[Dict]:
     return out
 
 # ---------- Chunkers ----------
-def sliding_window(text: str, size: int = 2000, overlap: int = 1000) -> List[Dict]:
+def sliding_window(text: str, size: int = 2000, overlap: int = 1000):
     if size <= 0 or overlap < 0 or overlap >= size:
-        raise ValueError("size>0 and 0 <= overlap < size required")
+        raise ValueError("size>0 and 0<=overlap<size")
     step = size - overlap
     n = len(text)
-    chunks = []
     i = 0
     idx = 0
     while i < n:
         chunk = text[i:i+size]
-        chunks.append({"chunk_index": idx, "start": i, "end": i+len(chunk), "text": chunk})
+        yield {"chunk_index": idx, "start": i, "end": i+len(chunk), "text": chunk}
         idx += 1
         if i + size >= n:
             break
         i += step
-    return chunks
 
 _paragraph_splitter = re.compile(r"\n\s*\n", re.MULTILINE)
-def split_paragraphs(text: str) -> List[str]:
-    paras = [p.strip() for p in _paragraph_splitter.split(text.strip()) if p.strip()]
-    return paras
+def split_paragraphs(text: str):
+    return [p.strip() for p in _paragraph_splitter.split(text.strip()) if p.strip()]
 
-def split_markdown_by_level(text: str, level: int = 2) -> List[str]:
-    # Matches lines that start with "## " for level=2, "### " for level=3, etc.
+def split_markdown_by_level(text: str, level: int = 2):
     header_pattern = r'^(#{' + str(level) + r'}\s+.+)$'
     pattern = re.compile(header_pattern, re.MULTILINE)
     parts = pattern.split(text)
     if len(parts) <= 1:
-        # No matching headers found; return the full text as one section
         return [text.strip()] if text.strip() else []
     sections = []
-    # parts structure: [before, header, after, header, after, ...]
-    # we keep header + following content together
     for i in range(1, len(parts), 2):
         header = parts[i].strip()
         after = parts[i+1].strip() if (i+1) < len(parts) else ""
@@ -84,7 +111,7 @@ def split_markdown_by_level(text: str, level: int = 2) -> List[str]:
             sections.append(block)
     return sections
 
-# ---------- Output helpers ----------
+# ---------- Output ----------
 def write_jsonl(records: List[Dict], path: str) -> None:
     with open(path, "w", encoding="utf-8") as f:
         for r in records:
@@ -94,9 +121,9 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--owner", default="evidentlyai")
     ap.add_argument("--repo", default="docs")
-    ap.add_argument("--size", type=int, default=2000, help="sliding window size (chars)")
-    ap.add_argument("--overlap", type=int, default=1000, help="sliding window overlap (chars)")
-    ap.add_argument("--section_level", type=int, default=2, help="markdown header level for section split")
+    ap.add_argument("--size", type=int, default=2000)
+    ap.add_argument("--overlap", type=int, default=1000)
+    ap.add_argument("--section_level", type=int, default=2)
     args = ap.parse_args()
 
     print(f"[INFO] Downloading {args.owner}/{args.repo} ...")
@@ -104,11 +131,9 @@ def main():
     docs = [d for d in docs if (d.get("content") or "").strip()]
     print(f"[INFO] Parsed {len(docs)} docs with content")
 
-    # --- 1) Sliding window chunks ---
     sliding_out = []
     for d in docs:
-        sw = sliding_window(d["content"], size=args.size, overlap=args.overlap)
-        for c in sw:
+        for c in sliding_window(d["content"], size=args.size, overlap=args.overlap):
             sliding_out.append({
                 "split_type": "sliding",
                 "source": d["source"],
@@ -121,7 +146,6 @@ def main():
     write_jsonl(sliding_out, "evidently_sliding.jsonl")
     print(f"[OK] sliding -> evidently_sliding.jsonl  (chunks: {len(sliding_out)})")
 
-    # --- 2) Paragraph-based chunks ---
     para_out = []
     for d in docs:
         paras = split_paragraphs(d["content"])
@@ -137,7 +161,6 @@ def main():
     write_jsonl(para_out, "evidently_paragraph.jsonl")
     print(f"[OK] paragraph -> evidently_paragraph.jsonl (chunks: {len(para_out)})")
 
-    # --- 3) Section (markdown header) chunks ---
     sect_out = []
     for d in docs:
         secs = split_markdown_by_level(d["content"], level=args.section_level)
@@ -160,4 +183,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
