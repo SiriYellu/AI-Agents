@@ -20,7 +20,7 @@ The assistant then searches through your repo, finds the relevant context, and (
 
 ---
 
-## 🚀 Run Locally
+##  Run Locally
 
 1. Clone the repo:
    ```bash
@@ -67,7 +67,7 @@ The assistant then searches through your repo, finds the relevant context, and (
 ---
 
 ## 📸 Screenshots (example)
-*(replace with your own once deployed)*
+
 
 - App Home  
  <img width="2047" height="1050" alt="Screenshot 2025-10-02 020507" src="https://github.com/user-attachments/assets/8d44a29d-5678-4a83-9f70-35c174b14172" />
