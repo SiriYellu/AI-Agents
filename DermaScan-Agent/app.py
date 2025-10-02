@@ -59,7 +59,7 @@ def get_base64_of_bin_file(bin_file: str) -> str:
 st.set_page_config(page_title="DermaScan Agent", page_icon="🩺", layout="wide")
 
 # Background image (base64 so it works from Colab)
-bg_path = "/content/Gemini_Generated_Image_msjjscmsjjscmsjj.png"  # <- your file
+bg_path = "DermaScan-Agent/Gemini_Generated_Image_msjjscmsjjscmsjj.png"  # <- your file
 bg_css = ""
 try:
     bg_base64 = get_base64_of_bin_file(bg_path)
