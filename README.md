@@ -154,4 +154,78 @@ Advanced methods are only needed for messy or unstructured docs.
 ---
 
 ## Next Step
-Tomorrow → **Indexing the data into a search engine** to power our AI agent. 🚀
+Tomorrow → **Indexing the data into a search engine** to power our AI agent. 
+
+##  Day 3 — Indexing & Search
+**What I Learned:**  
+- How to chunk repo files and index them for efficient search.  
+
+**Methods Implemented:**  
+- Used `minsearch` lexical index with sliding window + stride.  
+- Parsed `.java`, `.kt`, `.xml`, `.py`, and `.md` files from repo.  
+
+**Outputs:**  
+- Search tool returning top-k relevant file chunks.  
+- Verified with sanity-check queries.  
+
+**Key Insight:**  
+- A good index is the foundation for an accurate repo Q&A agent.  
+
+**Next Step:**  
+- Connect search results with an LLM for grounded answers.  
+
+---
+
+##  Day 4 — Agent Creation
+**What I Learned:**  
+- How to connect LLM reasoning with repo search context.  
+
+**Methods Implemented:**  
+- Created agent with system prompt enforcing “answer only from repo”.  
+- Integrated search results into prompt.  
+
+**Outputs:**  
+- First working repo Q&A agent (CLI).  
+- Returned answers citing file snippets.  
+
+**Key Insight:**  
+- Without grounding, LLMs hallucinate — retrieval drastically improves trust.  
+
+**Next Step:**  
+- Evaluate systematically with structured questions and auto-grading.  
+
+---
+
+##  Day 5 — Evaluation
+**What I Learned:**  
+- Importance of quantitative evaluation for agent reliability.  
+
+**Methods Implemented:**  
+- Logged interactions into JSON.  
+- Added LLM-as-a-Judge evaluation pipeline.  
+- Generated test questions automatically from repo docs.  
+
+**Outputs:**  
+- Metrics on correctness, citation quality, clarity.  
+- Evaluation reports for multiple runs.  
+
+**Key Insight:**  
+- Logging + evals close the loop between “demo” and “measurable progress.”  
+
+**Next Step:**  
+- Build a UI for others to interact with the agent easily.  
+
+---
+
+##  Day 6 — UI & Deployment
+**What I Learned:**  
+- How to serve AI agents via a web interface.  
+
+**Methods Implemented:**  
+- Built Streamlit chat app with history + styling.  
+- Added background image and custom CSS.  
+- Enabled Gemini integration (with lexical fallback).  
+
+**Outputs:**  
+- Interactive app answering repo questions.  
+- Deployed publicly on Streamlit Cloud.  
