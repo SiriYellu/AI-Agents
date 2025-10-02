@@ -28,37 +28,13 @@
 
 <!-- Preferred: use a short GIF for inline playback on GitHub -->
 <p align="center">
-  <img src="" alt="DermaScan Demo GIF" width="900"/>
+  <img src="assets/Screen Recording 2025-10-02 024934.gif" alt="DermaScan Demo GIF" width="900"/>
 </p>
 
-<!-- Optional YouTube: clickable thumbnail linking to the video -->
-<p align="center">
-  <a href="https://youtu.be/YOUR_VIDEO_ID" target="_blank">
-    <img src="assets/youtube-thumb.jpg" alt="Watch the demo on YouTube" width="900"/>
-  </a>
-</p>
+## 📸 Screenshots
+<img width="2047" height="1050" alt="Screenshot 2025-10-02 020507" src="https://github.com/user-attachments/assets/2ee84a55-e5b6-46cd-bed3-88b4695e90a7" />
 
-<!-- Optional MP4 fallback: GitHub will show a player page when clicked -->
-<p align="center">
-  <a href="assets/demo.mp4">▶️ Watch demo (MP4)</a>
-</p>
-
----" alt="DermaScan Demo GIF" width="900"/>
-</p>
-
-<!-- Optional YouTube: clickable thumbnail linking to the video -->
-<p align="center">
-  <a href="https://youtu.be/YOUR_VIDEO_ID" target="_blank">
-    <img src="assets/youtube-thumb.jpg" alt="Watch the demo on YouTube" width="900"/>
-  </a>
-</p>
-
-<!-- Optional MP4 fallback: GitHub will show a player page when clicked -->
-<p align="center">
-  <a href="assets/demo.mp4">▶️ Watch demo (MP4)</a>
-</p>
-
----
+<img width="2047" height="1070" alt="Screenshot 2025-10-02 025140" src="https://github.com/user-attachments/assets/fe7f2e15-f557-49dc-93e8-4313d832135a" />
 
 ---
 
