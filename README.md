@@ -1,4 +1,26 @@
 # AI-Agents
+<!-- ====== HERO / LIVE LINK ====== -->
+
+# 🩺 DermaScan Repo Assistant
+
+<p align="center">
+  <a href="https://ai-agents-dermascan.streamlit.app/" target="_blank">
+    <img src="https://img.shields.io/badge/Live%20App-Open%20in%20Browser-19c37d?style=for-the-badge" alt="Live App"/>
+  </a>
+  &nbsp;
+  <img src="https://img.shields.io/badge/Built%20with-Streamlit-FF4B4B?style=for-the-badge" alt="Streamlit"/>
+  &nbsp;
+  <img src="https://img.shields.io/badge/Search-minsearch-6A5ACD?style=for-the-badge" alt="minsearch"/>
+</p>
+
+<p align="center">
+  <a href="https://ai-agents-dermascan.streamlit.app/" target="_blank">
+    <img src="assets/hero.png" alt="DermaScan Repo Assistant" width="900"/>
+  </a>
+</p>
+
+---
+
 We'll create a conversational agent that can answer questions about any GitHub repository. Think of it as your personal AI assistant for documentation and code. If you're familiar with DeepWiki, it's similar, but tailored to your GitHub repository.
 
 <img width="2047" height="829" alt="Screenshot 2025-09-25 213608" src="https://github.com/user-attachments/assets/867398fc-848f-4d0c-aacb-d7f130602019" />
