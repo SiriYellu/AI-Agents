@@ -13,11 +13,52 @@
   <img src="https://img.shields.io/badge/Search-minsearch-6A5ACD?style=for-the-badge" alt="minsearch"/>
 </p>
 
+
+
+<!-- ====== QUICK DEMO ====== -->
+
+## 🎥 Quick Demo
+
+<!-- Preferred: use a short GIF for inline playback on GitHub -->
 <p align="center">
-  <a href="https://ai-agents-dermascan.streamlit.app/" target="_blank">
-    <img src="assets/hero.png" alt="DermaScan Repo Assistant" width="900"/>
+  <img src="
+<!-- ====== QUICK DEMO ====== -->
+
+## 🎥 Quick Demo
+
+<!-- Preferred: use a short GIF for inline playback on GitHub -->
+<p align="center">
+  <img src="" alt="DermaScan Demo GIF" width="900"/>
+</p>
+
+<!-- Optional YouTube: clickable thumbnail linking to the video -->
+<p align="center">
+  <a href="https://youtu.be/YOUR_VIDEO_ID" target="_blank">
+    <img src="assets/youtube-thumb.jpg" alt="Watch the demo on YouTube" width="900"/>
   </a>
 </p>
+
+<!-- Optional MP4 fallback: GitHub will show a player page when clicked -->
+<p align="center">
+  <a href="assets/demo.mp4">▶️ Watch demo (MP4)</a>
+</p>
+
+---" alt="DermaScan Demo GIF" width="900"/>
+</p>
+
+<!-- Optional YouTube: clickable thumbnail linking to the video -->
+<p align="center">
+  <a href="https://youtu.be/YOUR_VIDEO_ID" target="_blank">
+    <img src="assets/youtube-thumb.jpg" alt="Watch the demo on YouTube" width="900"/>
+  </a>
+</p>
+
+<!-- Optional MP4 fallback: GitHub will show a player page when clicked -->
+<p align="center">
+  <a href="assets/demo.mp4">▶️ Watch demo (MP4)</a>
+</p>
+
+---
 
 ---
 
