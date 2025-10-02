@@ -70,10 +70,11 @@ The assistant then searches through your repo, finds the relevant context, and (
 *(replace with your own once deployed)*
 
 - App Home  
-  ![home screenshot](screenshots/home.png)
+ <img width="2047" height="1050" alt="Screenshot 2025-10-02 020507" src="https://github.com/user-attachments/assets/8d44a29d-5678-4a83-9f70-35c174b14172" />
+
 
 - Q&A Example  
-  ![qa screenshot](screenshots/qa.png)
+<img width="2047" height="1070" alt="Screenshot 2025-10-02 025140" src="https://github.com/user-attachments/assets/b7839df3-17ed-4de3-9cf7-c9b9f208c601" />
 
 ---
 
